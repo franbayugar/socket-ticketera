@@ -1,5 +1,4 @@
-# Socket Server Basico
+# Ticketera realizada con socket
 
-Un servidor de Websockets usando Node, Express y Socket.io
+Correr NPM install
 
-Temas cubiertos en mi curso de Node de cero a experto
