@@ -10,8 +10,11 @@ class Server {
         this.port   = process.env.PORT;
         this.server = require('http').createServer( this.app );
         this.io     = require('socket.io')( this.server );
+        this.apiPath = '/api/box';
 
-        this.paths = {};
+        this.paths = {
+            numeros: `${this.apiPath}/numeros`
+        };
 
         // Middlewares
         this.middlewares();
@@ -28,6 +31,9 @@ class Server {
         // CORS
         this.app.use( cors() );
 
+        //parseo de json
+        this.app.use(express.json());
+
         // Directorio Público
         this.app.use( express.static('public') );
 
@@ -36,7 +42,8 @@ class Server {
     routes() {
         
         // this.app.use( this.paths.auth, require('../routes/auth'));
-        
+        this.app.use(this.paths.numeros, require('../routes/ticketera'));
+
     }
 
     sockets() {
