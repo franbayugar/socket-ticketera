@@ -11,29 +11,33 @@ let lblEscritorio4 = document.querySelector('#lblEscritorio4');
 
 const socket = io();
 
-
-
 socket.on('estado-actual', (payload)=>{
-    const audio = new Audio('./audio/new-ticket.mp3');
-
-    audio.play();
-    const [ticket1, ticket2, ticket3, ticket4] = payload;
-    
-    if(ticket1){
-        lblTicket1.innerText = 'Ticket ' + ticket1.numero;
-        lblEscritorio1.innerText = 'Box ' + ticket1.escritorio;
-    }
-    if(ticket2){
-        lblTicket2.innerText = 'Ticket ' + ticket2.numero;
-        lblEscritorio2.innerText = 'Box ' + ticket2.escritorio;
-    }
-    if(ticket3){
-        lblTicket3.innerText = 'Ticket ' + ticket3.numero;
-        lblEscritorio3.innerText = 'Box ' + ticket3.escritorio;
-    }
-    if(ticket4){
-        lblTicket4.innerText = 'Ticket ' + ticket4.numero;
-        lblEscritorio4.innerText = 'Box ' + ticket4.escritorio;
-    }
-
+    const ticket = payload;
+    console.log('hola')
+    console.log(ticket);
 });
+
+// socket.on('estado-actual', (payload)=>{
+//     const audio = new Audio('./audio/new-ticket.mp3');
+
+//     audio.play();
+//     const [ticket1, ticket2, ticket3, ticket4] = payload;
+    
+//     if(ticket1){
+//         lblTicket1.innerText = 'Ticket ' + ticket1.numero;
+//         lblEscritorio1.innerText = 'Box ' + ticket1.escritorio;
+//     }
+//     if(ticket2){
+//         lblTicket2.innerText = 'Ticket ' + ticket2.numero;
+//         lblEscritorio2.innerText = 'Box ' + ticket2.escritorio;
+//     }
+//     if(ticket3){
+//         lblTicket3.innerText = 'Ticket ' + ticket3.numero;
+//         lblEscritorio3.innerText = 'Box ' + ticket3.escritorio;
+//     }
+//     if(ticket4){
+//         lblTicket4.innerText = 'Ticket ' + ticket4.numero;
+//         lblEscritorio4.innerText = 'Box ' + ticket4.escritorio;
+//     }
+
+// });

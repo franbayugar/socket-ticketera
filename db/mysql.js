@@ -1,40 +1,26 @@
 const mysql = require('mysql');
 
-class DB {
-    connection;
-    constructor() {
-        this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'muni_turnos'
-        });
-    }
 
-    connect() {
-        this.connection.connect((err) => {
-            if (err) throw err;
-        });
-    }
-
-    end(){
-        this.connection.end();
-    }
-
-    read(query, callback){
-        this.connection.query(query, function(error, result){
-            if(error) throw error;
-            callback(result);
-        });
-    }
-
-    insert(query, data, callback){
-        let queryReady = mysql.format(query, [data.box, data.siguiente, data.estado]);
-        this.connection.query(queryReady, function(error, result){
-            if(error) throw error;
-            callback(result);
-        });
-    }
+const leerDB = async(connection, query) =>{
+    return new Promise((resolve,reject)=>{
+    connection.query(query, function(error, result){
+        if(error) return reject(error)
+        return resolve(result);
+    });
+    });
 }
 
-module.exports = DB;
+
+const insertarDB = async(connection, {numero, escritorio, estado}, query) =>{
+    return new Promise((resolve,reject)=>{
+        let finalQuery = mysql.format(query, [escritorio,numero, estado])
+        connection.query(finalQuery, function(error, result){
+            if(error) return reject(error)
+            return resolve(result);
+        });
+    });
+}
+
+
+
+module.exports = {leerDB, insertarDB};

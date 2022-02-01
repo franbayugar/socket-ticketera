@@ -31,7 +31,7 @@ class Server {
         // CORS
         this.app.use( cors() );
 
-        //parseo de json
+        //parseo de
         this.app.use(express.json());
 
         // Directorio Público

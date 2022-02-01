@@ -8,12 +8,12 @@ const socket = io();
 
 socket.on('connect', () => {
 
-    socket.on('ultimo-ticket', (ultimo) => {
-        lblNuevoTicket.innerText = 'Ticket ' + ultimo;
+    // socket.on('ultimo-ticket', (ultimo) => {
+    //     lblNuevoTicket.innerText = 'Ticket ' + ultimo;
 
-    })
+    // })
 
-    btnCrear.disabled = false;
+    // btnCrear.disabled = false;
 
 });
 
@@ -28,10 +28,10 @@ socket.on('disconnect', () => {
 
 
 
-btnCrear.addEventListener( 'click', () => {
+// btnCrear.addEventListener( 'click', () => {
 
-    socket.emit( 'siguiente-ticket', null, ( ticket ) => {
-        lblNuevoTicket.innerText = ticket;
-    });
+//     socket.emit( 'siguiente-ticket', null, ( ticket ) => {
+//         lblNuevoTicket.innerText = ticket;
+//     });
 
-});
+// });

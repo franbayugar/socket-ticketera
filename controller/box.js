@@ -1,32 +1,42 @@
 const { response, request } = require('express');
-const DB = require('../db/mysql');
+const Pool = require('mysql/lib/Pool');
+const {leerDB, insertarDB} = require('../db/mysql');
+const mysql = require('mysql');
+
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'muni_turnos'
+});
 
 
 
-const boxGet = async (req = request, res = response) => {
-    const database = new DB();
-    database.connect();
-    database.read('SELECT MAX(id) as siguiente FROM turnos', result =>{
-        res.json(result);
-    });
-    database.end();
+const boxGet = async () => {
+    const queryString = 'SELECT MAX(id) as siguiente FROM turnos';
+    let resp = await leerDB(connection, queryString);
+    
+    let result = (resp[0].siguiente);
+    return result;
+
 }
 
-const boxInsert = async (req = request, res = response) => {
-    const database = new DB();
-    database.connect();
-    const {box, siguiente} = req.body;
-    const data = {
-        box,
-        siguiente : (siguiente%100)+1,
-        estado: 'c'
-    }
+const boxInsert = async (escritorio) => {
 
-    database.insert('INSERT INTO turnos (box, numero, estado) VALUES (?,?,?)', data, result =>{
-        res.json(result);
-    });
-    database.end();
+    const queryString = 'INSERT INTO turnos (box, numero, estado) VALUES (?,?,?)';
+    let numero = await boxGet();
+    numero = (numero%100)+1
+    const data = {
+        escritorio,
+        numero,
+        estado : 'c'
+    }
+    let resp = await insertarDB(connection, data, queryString);
+
+    return resp;
+
 }
 
 
 module.exports = {boxGet, boxInsert};
+

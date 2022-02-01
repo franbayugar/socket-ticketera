@@ -3,18 +3,9 @@ const TicketControl = require('../models/ticket-control');
 const ticketControl = new TicketControl();
 
 const socketController = (socket) => {
-    
-    socket.emit('ultimo-ticket', ticketControl.ultimo);
-    socket.broadcast.emit('estado-actual', ticketControl.ultimos4);
 
-    socket.emit('tickets-pendientes', ticketControl.tickets.length);
 
-    socket.on('siguiente-ticket', ( payload, callback ) => {
-        const siguiente = ticketControl.siguiente();
-        socket.broadcast.emit('tickets-pendientes', ticketControl.tickets.length)
-        callback(siguiente);
-
-    });
+    socket.emit('estado-actual', ticketControl.ultimo);
 
     socket.on('atender-ticket', ({escritorio}, callback) =>{
         if(!escritorio){
@@ -23,32 +14,78 @@ const socketController = (socket) => {
                 msg: 'Escritorio no definido'
             });
         }
-        const ticket = ticketControl.atenderTicket(escritorio);
+        ticketControl.siguiente(escritorio);
+        
+        socket.emit('estado-actual', ticketControl.ultimo);
+        // socket.emit('tickets-pendientes', ticketControl.tickets.length)
+        // socket.broadcast.emit('tickets-pendientes', ticketControl.tickets.length)
 
-        socket.broadcast.emit('estado-actual', ticketControl.ultimos4);
-        socket.emit('tickets-pendientes', ticketControl.tickets.length)
-        socket.broadcast.emit('tickets-pendientes', ticketControl.tickets.length)
 
-
-        socket.on('tickets-pendientes', (escritorio, callback) =>{
-            callback(ticketControl.tickets.length);
-        } );
+        // socket.on('tickets-pendientes', (escritorio, callback) =>{
+        //     callback(ticketControl.tickets.length);
+        // } );
     
 
-        if(!ticket){
-            callback({
-                ok:false,
-                msg: 'No hay tickets pendientes'
-            });
-        }else{
-            callback({
-                ok:true,
-                ticket
-            });
-        }
+        // if(!ticket){
+        //     callback({
+        //         ok:false,
+        //         msg: 'No hay tickets pendientes'
+        //     });
+        // }else{
+        //     callback({
+        //         ok:true,
+        //         ticket
+        //     });
+        // }
 
 
     })
+  
+    // socket.emit('ultimo-ticket', ticketControl.ultimo);
+    // socket.broadcast.emit('estado-actual', ticketControl.ultimos4);
+
+    // socket.emit('tickets-pendientes', ticketControl.tickets.length);
+
+    // socket.on('siguiente-ticket', ( payload, callback ) => {
+    //     const siguiente = ticketControl.siguiente();
+    //     socket.broadcast.emit('tickets-pendientes', ticketControl.tickets.length)
+    //     callback(siguiente);
+
+    // });
+
+    // socket.on('atender-ticket', ({escritorio}, callback) =>{
+    //     if(!escritorio){
+    //         return callback({
+    //             ok:false,
+    //             msg: 'Escritorio no definido'
+    //         });
+    //     }
+    //     const ticket = ticketControl.atenderTicket(escritorio);
+
+    //     socket.broadcast.emit('estado-actual', ticketControl.ultimos4);
+    //     socket.emit('tickets-pendientes', ticketControl.tickets.length)
+    //     socket.broadcast.emit('tickets-pendientes', ticketControl.tickets.length)
+
+
+    //     socket.on('tickets-pendientes', (escritorio, callback) =>{
+    //         callback(ticketControl.tickets.length);
+    //     } );
+    
+
+    //     if(!ticket){
+    //         callback({
+    //             ok:false,
+    //             msg: 'No hay tickets pendientes'
+    //         });
+    //     }else{
+    //         callback({
+    //             ok:true,
+    //             ticket
+    //         });
+    //     }
+
+
+    // })
 
 }
 

@@ -18,30 +18,30 @@ socket.on('connect', () => {
 
 });
 
-socket.on('disconnect', () => {
-    // console.log('Desconectado del servidor');
+// socket.on('disconnect', () => {
+//     // console.log('Desconectado del servidor');
 
-    lblOnline.style.display  = 'none';
-    lblOffline.style.display = '';
-});
-
-
-socket.on('enviar-mensaje', (payload) => {
-    console.log( payload )
-})
+//     lblOnline.style.display  = 'none';
+//     lblOffline.style.display = '';
+// });
 
 
-btnEnviar.addEventListener( 'click', () => {
+// socket.on('enviar-mensaje', (payload) => {
+//     console.log( payload )
+// })
 
-    const mensaje = txtMensaje.value;
-    const payload = {
-        mensaje,
-        id: '123ABC',
-        fecha: new Date().getTime()
-    }
+
+// btnEnviar.addEventListener( 'click', () => {
+
+//     const mensaje = txtMensaje.value;
+//     const payload = {
+//         mensaje,
+//         id: '123ABC',
+//         fecha: new Date().getTime()
+//     }
     
-    socket.emit( 'enviar-mensaje', payload, ( id ) => {
-        console.log('Desde el server', id );
-    });
+//     socket.emit( 'enviar-mensaje', payload, ( id ) => {
+//         console.log('Desde el server', id );
+//     });
 
-});
+// });
