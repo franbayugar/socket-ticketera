@@ -21,6 +21,13 @@ const boxGet = async () => {
 
 }
 
+const ultimos4 = async()=>{
+    const queryString = 'SELECT * FROM turnos ORDER BY id DESC LIMIT 4';
+    let resp = await leerDB(connection, queryString);
+    console.log(resp);
+    
+}
+
 const boxInsert = async (escritorio) => {
 
     const queryString = 'INSERT INTO turnos (box, numero, estado) VALUES (?,?,?)';

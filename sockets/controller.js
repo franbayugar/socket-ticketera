@@ -17,6 +17,8 @@ const socketController = (socket) => {
         ticketControl.siguiente(escritorio);
         
         socket.emit('estado-actual', ticketControl.ultimo);
+        socket.broadcast.emit('estado-actual', ticketControl.ultimo);
+
         // socket.emit('tickets-pendientes', ticketControl.tickets.length)
         // socket.broadcast.emit('tickets-pendientes', ticketControl.tickets.length)
 

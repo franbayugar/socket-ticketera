@@ -53,7 +53,7 @@ socket.on('estado-actual', (payload)=>{
 
 btnAtender.addEventListener( 'click', () => {
     socket.emit('atender-ticket', {escritorio}, (payload) =>{
-        console.log(payload.ticket.numero);
+        console.log('Atendiendo a ' + payload.ticket.numero);
     }) 
 
     

@@ -13,8 +13,7 @@ const socket = io();
 
 socket.on('estado-actual', (payload)=>{
     const ticket = payload;
-    console.log('hola')
-    console.log(ticket);
+    lblTicket1.innerText = (ticket);
 });
 
 // socket.on('estado-actual', (payload)=>{
