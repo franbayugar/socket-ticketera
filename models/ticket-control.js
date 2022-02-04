@@ -19,11 +19,11 @@ class TicketControl{
         this.init();
     }
   
-
-
     async init(){
-        let numero = await boxGet();
+        let numeros = await boxGet();
+        let numero = numeros[0].id;
         this.ultimo = (numero%100)+1
+        this.ultimos4 = numeros;
     }
 
     guardarDB(){
@@ -32,8 +32,10 @@ class TicketControl{
     }
 
     async siguiente(box){
-        let insertar = await boxInsert(box);
-        this.ultimo = (insertar.insertId%100)+1;
+        let resp = await boxInsert(box);
+        this.ultimo = resp;
+        this.ultimos4 = await boxGet();
+        return 'ok';
     }
     // siguiente(){
     //     this.ultimo += 1;

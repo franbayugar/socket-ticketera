@@ -8,13 +8,19 @@ let lblTicket3 = document.querySelector('#lblTicket3');
 let lblEscritorio3 = document.querySelector('#lblEscritorio3');
 let lblTicket4 = document.querySelector('#lblTicket4');
 let lblEscritorio4 = document.querySelector('#lblEscritorio4');
-
+let numberTickets = [lblTicket1, lblTicket2, lblTicket3, lblTicket4];
+let numberBox = [lblEscritorio1,lblEscritorio2,lblEscritorio3,lblEscritorio4];
 const socket = io();
 
-socket.on('estado-actual', (payload)=>{
-    const ticket = payload;
-    lblTicket1.innerText = (ticket);
+socket.on('estado-actual', (payload, last4)=>{
+    
+    last4.forEach((element, i) => {
+        numberTickets[i].innerText = 'Número ' + element.numero;
+        numberBox[i].innerText = 'Box ' + element.box;
+    });
 });
+
+console.log(numberTickets);
 
 // socket.on('estado-actual', (payload)=>{
 //     const audio = new Audio('./audio/new-ticket.mp3');

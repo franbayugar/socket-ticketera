@@ -46,14 +46,14 @@ socket.on('disconnect', () => {
 //         }
 // })
 
-socket.on('estado-actual', (payload)=>{
-    const ticket = payload;
-    console.log(ticket);
+socket.on('estado-actual', (payload, last4)=>{
+    lblPendientes.innerText = `Ultimo ticket: ${last4[0].numero}\n En Box ${last4[0].box} `;
+
 });
 
 btnAtender.addEventListener( 'click', () => {
     socket.emit('atender-ticket', {escritorio}, (payload) =>{
-        console.log('Atendiendo a ' + payload.ticket.numero);
+        lblTicket.innerText = (payload.numero);
     }) 
 
     

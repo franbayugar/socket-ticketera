@@ -13,35 +13,31 @@ let connection = mysql.createConnection({
 
 
 const boxGet = async () => {
-    const queryString = 'SELECT MAX(id) as siguiente FROM turnos';
+    const queryString = 'SELECT * FROM `turnos` ORDER BY ID DESC LIMIT 4';
     let resp = await leerDB(connection, queryString);
-    
-    let result = (resp[0].siguiente);
+    const result = Object.values(JSON.parse(JSON.stringify(resp)));
     return result;
 
 }
 
-const ultimos4 = async()=>{
-    const queryString = 'SELECT * FROM turnos ORDER BY id DESC LIMIT 4';
+const ultimo = async()=>{
+    const queryString = 'SELECT MAX(id) as siguiente FROM turnos';
     let resp = await leerDB(connection, queryString);
-    console.log(resp);
-    
+    resp = Object.values(JSON.parse(JSON.stringify(resp)));
+    return(resp[0].siguiente);
 }
 
 const boxInsert = async (escritorio) => {
-
     const queryString = 'INSERT INTO turnos (box, numero, estado) VALUES (?,?,?)';
-    let numero = await boxGet();
-    numero = (numero%100)+1
+    let respult = await ultimo();
+    numero = (respult%100)+1
     const data = {
         escritorio,
         numero,
         estado : 'c'
     }
-    let resp = await insertarDB(connection, data, queryString);
-
-    return resp;
-
+    await insertarDB(connection, data, queryString);
+    return numero;
 }
 
 
