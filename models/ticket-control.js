@@ -37,34 +37,6 @@ class TicketControl{
         this.ultimos4 = await boxGet();
         return 'ok';
     }
-    // siguiente(){
-    //     this.ultimo += 1;
-    //     const ticket = new Ticket(this.ultimo, null);
-    //     this.tickets.push(ticket);
-    //     this.guardarDB();
-    //     return 'Ticket ' + ticket.numero;
-    // }
-
-    // atenderTicket(escritorio){
-    //     //si no hay tickets
-    //     if(this.tickets.length === 0){
-    //         return null;
-    //     }
-
-    //     const ticket = this.tickets.shift();
-
-    //     ticket.escritorio = escritorio;
-
-    //     this.ultimos4.unshift(ticket);
-
-    //     if(this.ultimos4.length>4){
-    //         this.ultimos4.splice(-1,1);
-    //     }
-
-    //     this.guardarDB();
-
-    //     return ticket;
-    // }
 
 }
 

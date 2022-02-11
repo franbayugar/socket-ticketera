@@ -17,10 +17,20 @@ socket.on('estado-actual', (payload, last4)=>{
     last4.forEach((element, i) => {
         numberTickets[i].innerText = 'Número ' + element.numero;
         numberBox[i].innerText = 'Box ' + element.box;
+      
+
     });
+
+    const audio = new Audio('./audio/doorbell-audio.ogg');
+    audio.play();
+    lblTicket1.style.fontSize = '80px';
+    setTimeout(back, 1000)
 });
 
-console.log(numberTickets);
+function back() {
+    lblTicket1.style.fontSize = '50px';
+   }
+
 
 // socket.on('estado-actual', (payload)=>{
 //     const audio = new Audio('./audio/new-ticket.mp3');

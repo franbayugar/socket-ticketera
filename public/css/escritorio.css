@@ -1,0 +1,11 @@
+
+
+@media screen and (max-width: 600px) {
+    .oculto{
+        display: none;
+    }
+    #lblPendientes{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+}
